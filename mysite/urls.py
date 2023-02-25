@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from skill.api.router import router as skill_router
+from project.api.router import router as project_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(skill_router.urls)),
+    path("api/", include(project_router.urls))
 ]
