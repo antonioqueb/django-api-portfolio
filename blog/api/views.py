@@ -1,8 +1,15 @@
-from rest_framework.viewsets import ModelViewSet
-from blog.api.serializers import BlogSerializer
-from blog.models import Blog
+from rest_framework import viewsets
+from blog.models import Comment, BlogPost, BlogImage
+from blog.api.serializers import CommentSerializer, BlogPostSerializer, BlogImageSerializer
 
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
 
-class BlogViewSet(ModelViewSet):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
+class BlogPostViewSet(viewsets.ModelViewSet):
+    queryset = BlogPost.objects.all()
+    serializer_class = BlogPostSerializer
+
+class BlogImageViewSet(viewsets.ModelViewSet):
+    queryset = BlogImage.objects.all()
+    serializer_class = BlogImageSerializer
