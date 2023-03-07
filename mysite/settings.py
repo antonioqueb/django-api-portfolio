@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-rc^*w^w&6g9_(uvx#6s*bnt!w)l0rdi%!l7mv#y%uc&x%wo5pk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["189.176.124.25", 'localhost', 'localhost:3000', 'https://antonio-queb.up.railway.app/', 'django-server-production-0db9.up.railway.app']
+ALLOWED_HOSTS = ["antonio-queb.up.railway.app","https://www.queb.online/","189.176.124.25",'http://127.0.0.1:7517','http://172.17.1.218:7517', 'localhost', 'localhost:3000', 'https://antonio-queb.up.railway.app/', 'django-server-production-0db9.up.railway.app']
 
 # FORM SUBMISSION
 # Comment out the following line and place your railway URL, and your production URL in the array.
@@ -68,7 +68,11 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'http://127.0.0.1:7517',
+    'http://172.17.1.218:7517',
+    'https://www.queb.online',
+    "https://antonio-queb.up.railway.app",
 ]
 
 ROOT_URLCONF = 'mysite.urls'
