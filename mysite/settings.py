@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rc^*w^w&6g9_(uvx#6s*bnt!w)l0rdi%!l7mv#y%uc&x%wo5pk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["189.176.124.25", 'localhost', 'https://antonio-queb.up.railway.app/', 'django-server-production-0db9.up.railway.app']
+ALLOWED_HOSTS = ["189.176.124.25", 'localhost', 'localhost:3000', 'https://antonio-queb.up.railway.app/', 'django-server-production-0db9.up.railway.app']
 
 # FORM SUBMISSION
 # Comment out the following line and place your railway URL, and your production URL in the array.
@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'skill.apps.SkillConfig',
     'education.apps.EducationConfig',
     'blog.apps.BlogConfig',
+    'mptt',
+    'me',
 ]
 
 MIDDLEWARE = [
@@ -66,7 +68,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost'
+    'http://localhost:3000'
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -139,9 +141,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_URL = '/static/'
+
+MEDIA_URL = '/archivos/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "archivos")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

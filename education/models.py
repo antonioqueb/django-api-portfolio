@@ -5,7 +5,7 @@ class Education(models.Model):
     institution = models.CharField(max_length=200)
     start_date = models.CharField(max_length=50)
     end_date = models.CharField(max_length=50)
-    logo_url = models.CharField(max_length=200)
+    logo_url = models.ImageField( blank='', default="" , upload_to='educations/')
     website_url = models.CharField(max_length=200)
 
     def __str__(self):
