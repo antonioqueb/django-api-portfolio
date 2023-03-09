@@ -1,11 +1,9 @@
 from django.db import models
-from django.urls import reverse
 
 class Contact(models.Model):
+    name = models.CharField(max_length=100)
     email = models.EmailField()
-    phone_number = models.IntegerField()
-    linkedin_url = models.CharField(max_length=50)
-    github_url = models.CharField(max_length=50)
+    message = models.TextField()
 
     def __str__(self):
-        return self.email
+        return self.email + ' - ' + self.name + ' - ' + self.message
