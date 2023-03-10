@@ -35,4 +35,4 @@ urlpatterns = [
     path("api/", include(contact_router.urls)),
     path("api/", include(blog_router.urls)),
     path("api/", include(me_router.urls)),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
