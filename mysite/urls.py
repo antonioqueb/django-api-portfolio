@@ -26,6 +26,7 @@ from me.api.router import router as me_router
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(skill_router.urls)),
@@ -35,4 +36,6 @@ urlpatterns = [
     path("api/", include(contact_router.urls)),
     path("api/", include(blog_router.urls)),
     path("api/", include(me_router.urls)),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
