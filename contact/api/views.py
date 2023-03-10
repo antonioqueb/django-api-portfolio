@@ -1,8 +1,8 @@
 from rest_framework.viewsets import ModelViewSet
 from contact.api.serializers import ContactSerializer
-from contact.models import Contact
+from contact.models import ContactMe
 
 
 class ContactViewSet(ModelViewSet):
-    queryset = Contact.objects.all()
+    queryset = ContactMe.objects.all()
     serializer_class = ContactSerializer
