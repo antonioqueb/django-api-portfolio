@@ -23,8 +23,6 @@ from contact.api.router import router as contact_router
 from blog.api.router import router as blog_router
 from me.api.router import router as me_router
 
-from django.conf import settings
-from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -37,5 +35,3 @@ urlpatterns = [
     path("api/", include(blog_router.urls)),
     path("api/", include(me_router.urls)),
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
