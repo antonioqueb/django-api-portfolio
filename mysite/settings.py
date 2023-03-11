@@ -67,6 +67,8 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
+REST_FRAMEWORK = { 'DEFAULT_AUTHENTICATION_CLASSES': [ 'rest_framework.authentication.BasicAuthentication', ], }
+
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:7517',
     'http://172.17.1.218:7517',

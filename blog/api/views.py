@@ -1,6 +1,11 @@
 from rest_framework.viewsets import ModelViewSet
 from blog.models import Category, Comment, BlogPost, BlogImage
 from .serializers import CategorySerializer, CommentSerializer, BlogPostSerializer, BlogImageSerializer
+from rest_framework.decorators import api_view, authentication_classes
+from rest_framework.authentication import BasicAuthentication
+
+@api_view(['GET'])
+@authentication_class
 
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
