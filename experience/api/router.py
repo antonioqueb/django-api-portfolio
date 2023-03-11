@@ -1,5 +1,5 @@
 from rest_framework.routers import DefaultRouter
-from .views import ExperienceViewSet
+from experience.api.views import ExperienceViewSet
 
 router = DefaultRouter()
 router.register(r'experience', ExperienceViewSet, basename='experience')
