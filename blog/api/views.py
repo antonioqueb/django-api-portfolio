@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.authentication import BasicAuthentication
 
 @api_view(['GET'])
-@authentication_class
+@authentication_classes([BasicAuthentication])
 
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()

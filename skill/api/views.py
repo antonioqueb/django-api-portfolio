@@ -6,7 +6,8 @@ from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.authentication import BasicAuthentication
 
 @api_view(['GET'])
-@authentication_class
+@authentication_classes([BasicAuthentication])
+
 class SkillViewSet(ModelViewSet):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
