@@ -17,7 +17,7 @@ class Comment(MPTTModel):
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
-    image = models.ImageField(upload_to='comment_images', null=True, blank=True)
+    image = models.ImageField(upload_to='blog', null=True, blank=True)
 
     class MPTTMeta:
         order_insertion_by = ['name']
@@ -51,7 +51,7 @@ class BlogPost(models.Model):
     hashtags = models.CharField(max_length=200)
     tags = models.CharField(max_length=200)
     date = models.DateTimeField(auto_now_add=True)
-    image_url = models.ImageField(blank='', default="", upload_to='post/')
+    image_url = models.ImageField(blank='', default="", upload_to='blog')
     comments = models.ManyToManyField('blog.Comment', related_name='blogpost_comments')
     categories = models.ManyToManyField('blog.Category', related_name='blogpost_categories')
 
@@ -60,7 +60,7 @@ class BlogPost(models.Model):
 
 class BlogImage(models.Model):
     post = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
-    image = models.ImageField(blank='', default="", upload_to='blog/')
+    image = models.ImageField(blank='', default="", upload_to='blog')
 
     def __str__(self):
         return self.image.name

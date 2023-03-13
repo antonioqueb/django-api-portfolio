@@ -8,7 +8,7 @@ class Project(models.Model):
     details = models.TextField()
     technologies = models.JSONField()
     languages = models.JSONField()
-    image_url = models.ImageField( blank='', default="" , upload_to='projects/')
+    image_url = models.ImageField( blank='', default="" , upload_to='project')
  
     def __str__(self):
             return self.title
