@@ -58,17 +58,23 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-REST_FRAMEWORK = { 'DEFAULT_AUTHENTICATION_CLASS': [ 'rest_framework.authentication.BasicAuthentication', ], }
+if not DEBUG:
+    MIDDLEWARE.insert(3, 'django.middleware.csrf.CsrfViewMiddleware')
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASS': ['rest_framework.authentication.BasicAuthentication',],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+}
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:7517',
     'http://172.17.1.218:7517',

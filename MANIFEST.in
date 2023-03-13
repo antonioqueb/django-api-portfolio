@@ -1,2 +1,3 @@
-include public
+include public/media
+include public/static
 
