@@ -1,4 +1,4 @@
-attrs==22.2.0
+attrs==21.4.0
 colorama==0.4.6
 Django==4.1.7
 django-cors-headers==3.14.0
