@@ -37,9 +37,4 @@ urlpatterns = [
     path("api/", include(blog_router.urls)),
     path("api/", include(me_router.urls)),
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # new line of code to add media url to urlpatterns list for serving media files in development mode only (not in production)   
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # new line of code to add static url to urlpatterns list for serving static files in development mode only (not in production)
-
-
-#Noy creare
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
