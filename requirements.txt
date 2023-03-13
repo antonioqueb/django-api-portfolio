@@ -1,6 +1,7 @@
-attrs==21.4.0
+asgiref==3.6.0
+attrs==22.2.0
 colorama==0.4.6
-Django==1.11.29
+Django==4.1.7
 django-cors-headers==3.14.0
 django-filter==22.1
 django-js-asset==2.0.0
