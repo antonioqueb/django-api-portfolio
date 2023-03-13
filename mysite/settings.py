@@ -172,23 +172,29 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+import os
 import json
 from google.cloud import secretmanager
 
 # Obtener el secreto de Google Secret Manager
 client = secretmanager.SecretManagerServiceClient()
 name = "projects/991323999443/secrets/portfolio-secret/versions/1"
-response = client.access_secret_version(name)
+response = client.access_secret_version(request={"name": name})
 secret_content = response.payload.data.decode("UTF-8")
 
-# Parsear el contenido del secreto como JSON y obtener la ruta del archivo
+# Parsear el contenido del secreto como JSON
 secret_data = json.loads(secret_content)
-json_key_path = secret_data['json_key_path']
+print(secret_data)
+
+# Crear un archivo JSON temporal
+creds_file = "google_creds.json"
+with open(creds_file, "w") as f:
+    json.dump(secret_data, f)
+
+# Configurar la variable de entorno GOOGLE_APPLICATION_CREDENTIALS
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.abspath(creds_file)
 
 # Configurar Google Cloud Storage
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'portfolio-public-antonioqueb'
 STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_CREDENTIALS = json.dumps(secret_data)
-GS_PROJECT_ID = 'portfolio-public-antonioqueb'
