@@ -174,28 +174,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 import json
-from storages.backends.gcloud import GoogleCloudStorage
-
-# Obtener secreto de Google Secret Manager
 from google.cloud import secretmanager
 
 # Obtener el secreto de Google Secret Manager
 client = secretmanager.SecretManagerServiceClient()
 name = "projects/991323999443/secrets/portfolio-secret/versions/1"
-print(name)
 response = client.access_secret_version(name)
 secret_content = response.payload.data.decode("UTF-8")
-print(secret_content)
-
 
 # Parsear el contenido del secreto como JSON y obtener la ruta del archivo
 secret_data = json.loads(secret_content)
 json_key_path = secret_data['json_key_path']
-print(json_key_path)
 
 # Configurar Google Cloud Storage
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'portfolio-public-antonioqueb'
 STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_CREDENTIALS = json_key_path
-GS_PROJECTS_ID = 'portfolio-public-antonioqueb'
+GS_CREDENTIALS = json.dumps(secret_data)
+GS_PROJECT_ID = 'portfolio-public-antonioqueb'
