@@ -4,10 +4,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN mkdir /backend/
 
-
 WORKDIR /backend/
-
-
 
 COPY . /backend/
 
@@ -19,8 +16,6 @@ RUN apk update \
     && pip install -r requirements.txt \
     && python manage.py collectstatic --noinput \
     && python manage.py makemigrations \
-    && python manage.py migrate \
-    && gunicorn mysite.wsgi --bind 0.0.0.0:$PORT --chdir /app --log-file - --workers 4 --timeout 120 --access-logfile - --error-logfile - --preload --max-requests 500 --max-requests-jitter 50  --log-level debug
+    && python manage.py migrate
 
-
-
+CMD gunicorn mysite.wsgi --bind 0.0.0.0:$PORT --chdir /app --log-file - --workers 4 --timeout 120 --access-logfile - --error-logfile - --preload --max-requests 500 --max-requests-jitter 50 --log-level debug
