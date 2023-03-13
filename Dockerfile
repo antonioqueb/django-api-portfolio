@@ -18,4 +18,4 @@ RUN apk update \
     && python manage.py makemigrations \
     && python manage.py migrate
 
-CMD gunicorn mysite.wsgi --bind 0.0.0.0:$PORT --chdir /app --log-file - --workers 4 --timeout 120 --access-logfile - --error-logfile - --preload --max-requests 500 --max-requests-jitter 50 --log-level debug
+CMD gunicorn mysite.wsgi --bind 0.0.0.0:$PORT --chdir /backend --log-file - --workers 4 --timeout 120 --access-logfile - --error-logfile - --preload --max-requests 500 --max-requests-jitter 50 --log-level debug
