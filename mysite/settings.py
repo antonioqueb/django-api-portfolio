@@ -198,3 +198,5 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.abspath(creds_file)
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'portfolio-public-antonioqueb'
 STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
+# Configurar Google Cloud Storage para servir archivos estáticos
