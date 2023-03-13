@@ -5,8 +5,6 @@ from contact.models import ContactMe
 from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.authentication import BasicAuthentication
 
-@api_view(['GET'])
-@authentication_classes([BasicAuthentication])
 class ContactViewSet(ModelViewSet):
     queryset = ContactMe.objects.all()
     serializer_class = ContactSerializer
