@@ -9,20 +9,23 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
 import os
 from pathlib import Path
 from decouple import config
+import json
+
+
+# pyright: reportMissingImports=false
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ukcukxcutcyrxkyckhckyuxt
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'rest_framework',
     'corsheaders',
     'experience.apps.ExperienceConfig',
@@ -153,17 +157,45 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'public/static/')
 
+STATICFILES_DIRS = [
+     os.path.join(BASE_DIR, 'public/static')
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'public/media')
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'public/media/')
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+import json
+from storages.backends.gcloud import GoogleCloudStorage
+
+# Obtener secreto de Google Secret Manager
+from google.cloud import secretmanager
+
+# Obtener el secreto de Google Secret Manager
+client = secretmanager.SecretManagerServiceClient()
+name = "projects/991323999443/secrets/portfolio-secret/versions/1"
+print(name)
+response = client.access_secret_version(name)
+secret_content = response.payload.data.decode("UTF-8")
+print(secret_content)
+
+
+# Parsear el contenido del secreto como JSON y obtener la ruta del archivo
+secret_data = json.loads(secret_content)
+json_key_path = secret_data['json_key_path']
+print(json_key_path)
+
+# Configurar Google Cloud Storage
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'portfolio-public-antonioqueb'
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_CREDENTIALS = json_key_path
+GS_PROJECTS_ID = 'portfolio-public-antonioqueb'
