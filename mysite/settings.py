@@ -178,7 +178,7 @@ from google.cloud import secretmanager
 
 # Obtener el secreto de Google Secret Manager
 client = secretmanager.SecretManagerServiceClient()
-name = "projects/991323999443/secrets/portfolio-secret/versions/1"
+name = "projects/991323999443/secrets/portfolio/versions/1"
 response = client.access_secret_version(request={"name": name})
 secret_content = response.payload.data.decode("UTF-8")
 
