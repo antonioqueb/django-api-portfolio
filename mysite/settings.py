@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 from decouple import config
-import json
 
 
 # pyright: reportMissingImports=false
@@ -84,6 +83,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://172.17.1.218:7517',
     'https://www.queb.online',
     "https://antonio-queb.up.railway.app",
+    "http://10.31.1.74:8000",
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -158,45 +158,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
+
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-     os.path.join(BASE_DIR, 'public/static')
-]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'public/media')
-MEDIA_URL = '/media/'
+MEDIA_URL='/media/'
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-import os
-import json
-from google.cloud import secretmanager
-
-# Obtener el secreto de Google Secret Manager
-client = secretmanager.SecretManagerServiceClient()
-name = "projects/991323999443/secrets/portfolio/versions/1"
-response = client.access_secret_version(request={"name": name})
-secret_content = response.payload.data.decode("UTF-8")
-
-# Parsear el contenido del secreto como JSON
-secret_data = json.loads(secret_content)
-print(secret_data)
-
-# Crear un archivo JSON temporal
-creds_file = "google_creds.json"
-with open(creds_file, "w") as f:
-    json.dump(secret_data, f)
-
-# Configurar la variable de entorno GOOGLE_APPLICATION_CREDENTIALS
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.abspath(creds_file)
-
-# Configurar Google Cloud Storage
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_BUCKET_NAME = 'portfolio-public-antonioqueb'
-STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-
-# Configurar Google Cloud Storage para servir archivos estáticos
